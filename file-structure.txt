@@ -1,48 +1,100 @@
 ScoreWeaver/
-├── docs/                # GitHub Pages 用ビルド成果物（Vite の dist をここに出す）
+├── docs/                        # GitHub Pages 用ビルド成果物（Vite の dist）
 │
-├── public/              # 静的ファイル（favicon, ogp画像など）
-│   └── index.html
+├── public/                      # 静的ファイル（favicon, OGP, manifest など）
+│   ├── index.html
+│   ├── ogp.png
+│   ├── manifest.json
+│   └── icons/
 │
 ├── src/
-│   ├── core/            # ScoreWeaver の心臓（ロジック層）
-│   │   ├── types/       # JSON/ABC/MIDI の型定義
-│   │   │   └── song.ts
-│   │   ├── ai/          # AI クライアント（HF API）
-│   │   │   └── hfClient.ts
-│   │   ├── parser/      # ABC パーサー、JSONバリデーション
+│   ├── core/                    # ロジック層（ScoreWeaver の脳）
+│   │   ├── types/               # 型定義（ScoreWeaver 言語）
+│   │   │   ├── song.ts
+│   │   │   ├── track.ts
+│   │   │   ├── note.ts
+│   │   │   └── metadata.ts
+│   │   │
+│   │   ├── ai/                  # AI クライアント
+│   │   │   ├── hfClient.ts
+│   │   │   ├── promptBuilder.ts
+│   │   │   └── aiTypes.ts
+│   │   │
+│   │   ├── parser/              # パーサー（ABC / JSON バリデーション）
 │   │   │   ├── abcParser.ts
-│   │   │   └── jsonValidator.ts
-│   │   ├── midi/        # MIDI生成ロジック
-│   │   │   └── midiGenerator.ts
-│   │   └── audio/       # WebAudio / WAV生成（将来用）
-│   │       └── wavRenderer.ts
+│   │   │   ├── jsonValidator.ts
+│   │   │   └── schema/
+│   │   │       └── song.schema.json
+│   │   │
+│   │   ├── midi/                # MIDI 生成ロジック
+│   │   │   ├── midiGenerator.ts
+│   │   │   ├── midiWriter.ts
+│   │   │   └── midiTypes.ts
+│   │   │
+│   │   ├── audio/               # WebAudio / WAV 生成
+│   │   │   ├── wavRenderer.ts
+│   │   │   └── audioUtils.ts
+│   │   │
+│   │   └── utils/               # ロジック系ユーティリティ
+│   │       ├── math.ts
+│   │       ├── timing.ts
+│   │       └── converters.ts
 │   │
-│   ├── ui/              # UIコンポーネント
+│   ├── ui/                      # UI（React）
 │   │   ├── App.tsx
-│   │   ├── Editor/
+│   │   │
+│   │   ├── Editor/              # エディタ画面
 │   │   │   ├── JsonEditor.tsx
-│   │   │   └── AbcEditor.tsx
-│   │   ├── Player/
+│   │   │   ├── AbcEditor.tsx
+│   │   │   ├── EditorTabs.tsx
+│   │   │   └── EditorToolbar.tsx
+│   │   │
+│   │   ├── Player/              # プレイヤー画面
 │   │   │   ├── MidiPlayer.tsx
-│   │   │   └── TransportControls.tsx
-│   │   └── Layout/
-│   │       └── Header.tsx
+│   │   │   ├── TransportControls.tsx
+│   │   │   └── WaveformView.tsx
+│   │   │
+│   │   ├── Layout/              # レイアウト
+│   │   │   ├── Header.tsx
+│   │   │   ├── Sidebar.tsx
+│   │   │   └── Footer.tsx
+│   │   │
+│   │   ├── components/          # 汎用 UI コンポーネント
+│   │   │   ├── Button.tsx
+│   │   │   ├── Modal.tsx
+│   │   │   └── Tabs.tsx
+│   │   │
+│   │   └── assets/              # UI 用画像
+│   │       ├── react.svg
+│   │       └── logo.svg
 │   │
-│   ├── hooks/           # カスタムフック（AI呼び出し、MIDI管理など）
-│   │   └── useAI.ts
+│   ├── hooks/                   # カスタムフック
+│   │   ├── useAI.ts
+│   │   ├── useMIDI.ts
+│   │   ├── useSong.ts
+│   │   └── useLocalStorage.ts
 │   │
-│   ├── utils/           # 汎用ユーティリティ
-│   │   └── helpers.ts
+│   ├── styles/                  # CSS / Tailwind / Sass
+│   │   ├── global.css
+│   │   ├── editor.css
+│   │   └── player.css
 │   │
-│   ├── styles/          # CSS / Tailwind / Sass など
-│   │   └── global.css
+│   ├── utils/                   # UI 用ユーティリティ
+│   │   ├── format.ts
+│   │   └── dom.ts
 │   │
-│   └── main.tsx         # エントリーポイント
+│   └── main.tsx                 # エントリーポイント
+│
+├── tests/                       # テスト（Vitest）
+│   ├── core/
+│   └── ui/
+│
+├── scripts/                     # ビルド・デプロイ用スクリプト
+│   └── deploy-pages.ts
 │
 ├── package.json
 ├── tsconfig.json
 ├── vite.config.ts
 ├── LICENSE
 ├── README.md
-└── file-structure.txt
+└── CONTRIBUTING.md
