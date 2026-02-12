@@ -1,0 +1,48 @@
+ScoreWeaver/
+├── docs/                # GitHub Pages 用ビルド成果物（Vite の dist をここに出す）
+│
+├── public/              # 静的ファイル（favicon, ogp画像など）
+│   └── index.html
+│
+├── src/
+│   ├── core/            # ScoreWeaver の心臓（ロジック層）
+│   │   ├── types/       # JSON/ABC/MIDI の型定義
+│   │   │   └── song.ts
+│   │   ├── ai/          # AI クライアント（HF API）
+│   │   │   └── hfClient.ts
+│   │   ├── parser/      # ABC パーサー、JSONバリデーション
+│   │   │   ├── abcParser.ts
+│   │   │   └── jsonValidator.ts
+│   │   ├── midi/        # MIDI生成ロジック
+│   │   │   └── midiGenerator.ts
+│   │   └── audio/       # WebAudio / WAV生成（将来用）
+│   │       └── wavRenderer.ts
+│   │
+│   ├── ui/              # UIコンポーネント
+│   │   ├── App.tsx
+│   │   ├── Editor/
+│   │   │   ├── JsonEditor.tsx
+│   │   │   └── AbcEditor.tsx
+│   │   ├── Player/
+│   │   │   ├── MidiPlayer.tsx
+│   │   │   └── TransportControls.tsx
+│   │   └── Layout/
+│   │       └── Header.tsx
+│   │
+│   ├── hooks/           # カスタムフック（AI呼び出し、MIDI管理など）
+│   │   └── useAI.ts
+│   │
+│   ├── utils/           # 汎用ユーティリティ
+│   │   └── helpers.ts
+│   │
+│   ├── styles/          # CSS / Tailwind / Sass など
+│   │   └── global.css
+│   │
+│   └── main.tsx         # エントリーポイント
+│
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+├── LICENSE
+├── README.md
+└── file-structure.txt
