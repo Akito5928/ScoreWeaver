@@ -1,9 +1,14 @@
 import { useState } from "react"
 import { Song } from "@/core/types/song"
-import EditorTabs from "@/ui/Editor/EditorTabs"
-import EditorToolbar from "@/ui/Editor/EditorToolbar"
+
+import Header from "@/ui/Layout/Header"
+import Sidebar from "@/ui/Layout/Sidebar"
+import MainArea from "@/ui/Layout/MainArea"
 import MidiPlayer from "@/ui/Player/MidiPlayer"
+
 import { generateSong } from "@/core/ai/hfClient"
+
+import "./App.css"
 
 export default function App() {
   const [song, setSong] = useState<Song>({
@@ -24,13 +29,21 @@ export default function App() {
   }
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>ScoreWeaver MVP</h1>
+    <div className="app-container">
+      <Header onAIGenerate={handleAIGenerate} />
 
-      <EditorToolbar onAIGenerate={handleAIGenerate} />
-      <EditorTabs song={song} onChange={setSong} />
+      <div className="main-layout">
+        {/* 左列 */}
+        <Sidebar />
 
-      <MidiPlayer song={song} />
+        {/* 中央列 */}
+        <MainArea song={song} onChange={setSong} />
+
+        {/* 右列 */}
+        <div className="player-area">
+          <MidiPlayer song={song} />
+        </div>
+      </div>
     </div>
   )
 }
