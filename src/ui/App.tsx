@@ -1,41 +1,36 @@
-import { useState } from 'react'
+import { useState } from "react"
+import { Song } from "@/core/types/song"
+import EditorTabs from "@/ui/Editor/EditorTabs"
+import EditorToolbar from "@/ui/Editor/EditorToolbar"
+import MidiPlayer from "@/ui/Player/MidiPlayer"
+import { generateSong } from "@/core/ai/hfClient"
 
-// 変更ポイント：react.svg の場所を ui/assets/ に変更
-import reactLogo from './assets/react.svg'
+export default function App() {
+  const [song, setSong] = useState<Song>({
+    id: "init",
+    meta: {
+      title: "Untitled",
+      bpm: 120,
+      timeSignature: { numerator: 4, denominator: 4 }
+    },
+    tracks: [],
+    tempoMap: [],
+    timeSignatureMap: []
+  })
 
-// vite.svg は public/ にあるのでそのまま
-import viteLogo from '/vite.svg'
-
-// 変更ポイント：App.css → ../styles/App.css
-import '../styles/App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
+  const handleAIGenerate = async () => {
+    const newSong = await generateSong("Make a simple melody")
+    setSong(newSong)
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/ui/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div style={{ padding: "20px" }}>
+      <h1>ScoreWeaver MVP</h1>
+
+      <EditorToolbar onAIGenerate={handleAIGenerate} />
+      <EditorTabs song={song} onChange={setSong} />
+
+      <MidiPlayer song={song} />
+    </div>
   )
 }
-
-export default App

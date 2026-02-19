@@ -1,3 +1,9 @@
 export default function TransportControls() {
-  return <div>TransportControls (TODO)</div>
+  return (
+    <div>
+      <button>Play</button>
+      <button>Stop</button>
+      <button>Rewind</button>
+    </div>
+  )
 }

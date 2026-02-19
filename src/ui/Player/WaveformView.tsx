@@ -1,3 +1,3 @@
 export default function WaveformView() {
-  return <div>WaveformView (TODO)</div>
+  return <div>Waveform (TODO)</div>
 }
