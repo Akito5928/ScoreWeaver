@@ -1,20 +1,20 @@
-interface Props {
-  onAIGenerate?: () => void
-}
+import { useAI } from "../../hooks/useAI"
 
-export default function EditorToolbar({ onAIGenerate }: Props) {
+export default function EditorToolbar() {
+  const { handleGenerate } = useAI()
+
   return (
     <div
       style={{
         display: "flex",
         gap: "8px",
         marginBottom: "var(--space-md)",
-        flexShrink: 0,   // ★ これが最重要
-        height: "auto",  // ★ 高さを確保
+        flexShrink: 0,
+        height: "auto",
       }}
     >
       <button
-        onClick={onAIGenerate}
+        onClick={handleGenerate}
         style={{
           background: "var(--accent)",
           border: "none",
